@@ -18,7 +18,7 @@ if (alarm[2] > 0 && estado == slimePerseguindo) {
 	draw_text_outline(x, y-15, "!", 2, c_black, 8, 100, 100);
 } else if (alarm[2] > 40 && estado == slimeDesistiu) {
 	draw_set_font(ft_dano);
-	draw_text_outline(x-8, y-15, "???ç", 2, c_black, 8, 100, 100);
+	draw_text_outline(x-8, y-15, "???", 2, c_black, 8, 100, 100);
 } else if (alarm[2] > 20 && estado == slimeDesistiu) {
 	draw_set_font(ft_dano);
 	draw_text_outline(x-4, y-15, "??", 2, c_black, 8, 100, 100);

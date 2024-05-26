@@ -17,7 +17,7 @@ caminho = path_add();
 
 // Visão
 dist_aggro = 50;
-dist_desaggro = 250;
+dist_desaggro = 100;
 
 // Combate
 vida = 5;
