@@ -1,6 +1,16 @@
 
 function mudarSprite() {
-	dirOlhar = floor((point_direction(x, y, mouse_x, mouse_y) +45) /90);
+	if (gamepad_is_connected(global.controle)) {
+		if (gamepad_axis_value(global.controle, gp_axisrh) != 0 && gamepad_axis_value(global.controle, gp_axisrv) != 0) {
+			dirOlhar = floor((point_direction(x, y, 
+				x + gamepad_axis_value(global.controle, gp_axisrh), 
+				y + gamepad_axis_value(global.controle, gp_axisrv)
+			) +45) /90);
+		}
+	} else {
+		dirOlhar = floor((point_direction(x, y, mouse_x, mouse_y) +45) /90);
+	}
+	
 	if (estado == ataque) {
 		image_index = 0;
 		switch dirOlhar {

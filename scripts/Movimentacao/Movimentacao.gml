@@ -1,8 +1,9 @@
 function controleDirecaoPrimario() {
-	direita = keyboard_check(ord("D"));
-	esquerda = keyboard_check(ord("A"));
-	cima = keyboard_check(ord("W"));
-	baixo = keyboard_check(ord("S"));
+	gamepad_set_axis_deadzone(global.controle, 0.25)
+	direita = keyboard_check(ord("D")) || gamepad_axis_value(global.controle, gp_axislh) > 0.25;
+	cima = keyboard_check(ord("W")) || gamepad_axis_value(global.controle, gp_axislv) < -0.25;
+	esquerda = keyboard_check(ord("A")) || gamepad_axis_value(global.controle, gp_axislh) < -0.25;
+	baixo = keyboard_check(ord("S")) || gamepad_axis_value(global.controle, gp_axislv) > 0.25;
 
 	vHorz = (direita - esquerda);
 	vVert = (baixo - cima);
@@ -10,7 +11,7 @@ function controleDirecaoPrimario() {
 }
 
 function observar() {
-	if (keyboard_check_pressed(ord("V"))) {
+	if (keyboard_check_pressed(ord("V")) || gamepad_button_check_pressed(global.controle, gp_stickr)) {
 		obj_jogador.alarm[1] = 10;
 		obj_camera.estado = seguir;
 		obj_jogador.estado = movimentacao;
@@ -24,7 +25,7 @@ function movimentacao() {
 	estadoFisico();
 	controleDirecaoPrimario();
 	
-	if (keyboard_check(vk_control) && (vHorz != 0 || vVert != 0)) {
+	if ((keyboard_check(vk_control) || gamepad_button_check(global.controle, gp_face2)) && (vHorz != 0 || vVert != 0)) {
 		correndo();
 	} else if (vHorz != 0 || vVert != 0) {
 		andando();
@@ -90,7 +91,15 @@ function correndo() {
 
 function dash() {
 	invulveravel = true;
-	var _direc = point_direction(x, y, mouse_x, mouse_y);
+	
+	var _direc;
+	if (gamepad_is_connected(global.controle)) {
+		_direc = point_direction(x, y, 
+			x + gamepad_axis_value(global.controle, gp_axislh), 
+			y + gamepad_axis_value(global.controle, gp_axislv));
+	} else {
+		_direc = point_direction(x, y, mouse_x, mouse_y);
+	}
 	
 	vHorz = lengthdir_x(dashVeloc, _direc);
 	vVert = lengthdir_y(dashVeloc, _direc);
