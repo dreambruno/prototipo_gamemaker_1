@@ -1,11 +1,12 @@
 
 function mudarSprite() {
+
 	if (gamepad_is_connected(global.controle)) {
-		if (gamepad_axis_value(global.controle, gp_axisrh) != 0 && gamepad_axis_value(global.controle, gp_axisrv) != 0) {
-			dirOlhar = floor((point_direction(x, y, 
-				x + gamepad_axis_value(global.controle, gp_axisrh), 
-				y + gamepad_axis_value(global.controle, gp_axisrv)
-			) +45) /90);
+		var _vert = gamepad_axis_value(global.controle, gp_axisrv);
+		var _horiz = gamepad_axis_value(global.controle, gp_axisrh);
+		
+		if (_horiz != 0 || _vert != 0) {
+			dirOlhar = floor((point_direction(x, y, x +_horiz, y +_vert) +45) /90);
 		}
 	} else {
 		dirOlhar = floor((point_direction(x, y, mouse_x, mouse_y) +45) /90);
@@ -93,7 +94,6 @@ function ataque() {
 
 function personagemTomaDano() {
 	
-		//obj_jogador.alarm[1] = 10;
 		obj_camera.estado = seguir;
 		obj_jogador.estado = movimentacao;
 	if (alarm[4] <= 0) {
