@@ -6,9 +6,9 @@ draw_text(120, 120, "X: " + string(x));
 
 draw_text(120, 140, "Y: " + string(y));
 
-draw_text(120, 160, "X: " + string(obj_personagem.x));
+draw_text(120, 160, "X: " + string(par_personagem.x));
 
-draw_text(120, 180, "Y: " + string(obj_personagem.y));
+draw_text(120, 180, "Y: " + string(par_personagem.y));
 
 draw_text(120, 200, "D: " + string(distance_to_object(obj_jogador)));
 
